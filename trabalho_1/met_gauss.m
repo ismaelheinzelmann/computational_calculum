@@ -1,5 +1,4 @@
-function X = met_gauss(A, B)
-    A = [A B];
+function X = met_gauss(A)
     n = rows(A);
 
     # pivotação inicial
