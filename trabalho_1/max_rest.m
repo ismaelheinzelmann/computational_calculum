@@ -3,8 +3,8 @@ function ret = max_rest(A, solutions)
     for i = 1:rows(A)
         result = A(i, 1:rows(A)) * solutions;
         error = double(result - A(i, columns(A)));
-        if (error > max_error)
-            max_error = error;
+        if (abs(error) > max_error)
+            max_error = abs(error);
         endif
     endfor
     ret = max_error;

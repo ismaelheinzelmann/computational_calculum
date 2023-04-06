@@ -6,8 +6,7 @@ function questao2_2()
     for j = 1: columns(solution)
         printf("\nx%d=%e", j, solution(j));
     end #j
-    #perguntar como calcular erro
-
+    printf("\nO Sistema converge, pois possui determinante %e, que é bem menor que 1.", det(A(:, 1:rows(A))))
     printf("\nFIM QUESTÃO 2.2\n")
 end #function
 

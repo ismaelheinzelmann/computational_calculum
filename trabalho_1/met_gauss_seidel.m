@@ -27,5 +27,6 @@ function X = met_gauss_seidel(A)
     endwhile
     printf("Operações com ponto flutuante: %d\n", ops_with_float);
     printf("Iterações: %d\n", iterations);
+    printf("Resíduo máximo: %e\n", dif);
     X = s;
 end #function

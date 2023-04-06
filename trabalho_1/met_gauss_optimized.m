@@ -1,0 +1,45 @@
+function x = met_gauss_optimized(A)
+
+    n = rows(A);
+    ops_with_float = 0;
+
+    # triangulação
+    for k = 1:n-1
+    # neste caso deve-se escolher a melhor linha para eliminação
+    # melhor linha será a que tem o maior valor em sua diagonal principal
+    # acumulando menores erros de arredondamento
+        [A_max, pos] = max(abs(A(k: n, k)));
+        LK = A(k, :); # valor preservado da original
+        A(k,:) = A(pos + k - 1,:);
+        A(pos + k - 1, :) = LK;
+
+        for i = k+1:n
+            aux = A(i,k)/A(k,k);
+            ops_with_float++;
+            for j = k:n+1
+                ops_with_float++;
+                A(i,j) = A(i,j) - aux*A(k,j);
+            endfor
+        endfor
+    endfor
+    # fim triangulação
+
+    # retrossubstituição
+    solution = [];
+    solution(n) = A(n, n+1) / A(n, n);
+    for i = n-1 : -1 :1
+        soma = 0;
+        for j = i + 1: n
+            if (A(i, j) != 0 && solution(j) != 0)
+                soma += A(i, j) * solution(j);
+                ops_with_float += 2*n - 1;# operations = 2n - 1 (n = dimensão da matriz) n multiplicações e n - 1 para cada linha por coluna de multiplicação (
+            endif
+        endfor
+        ops_with_float += 2;
+        solution(i) = (A(i, n + 1) - soma)/ A(i, i);
+    endfor
+    # fim retrossubstituição
+    printf("Operações com ponto flutuante: %d\n", ops_with_float);
+    x= solution;
+
+end #function

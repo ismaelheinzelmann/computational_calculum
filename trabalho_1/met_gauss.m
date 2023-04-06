@@ -1,18 +1,10 @@
 function X = met_gauss(A)
-    #OTIMIZAÇÃO NA SEÇÃO 2.1.6
+    #OTIMIZAÇÃO NA SEÇÃO 2.1.6 CASO ZERO NÃO OPERE
     n = rows(A);
     ops_with_float = 0;
 
     # triangulação
     for k = 1:n-1
-    # neste caso deve-se escolher a melhor linha para eliminação
-    # melhor linha será a que tem o maior valor em sua diagonal principal
-    # acumulando menores erros de arredondamento
-        [A_max, pos] = max(abs(A(k: n, k)));
-        LK = A(k, :); # valor preservado da original
-        A(k,:) = A(pos + k - 1,:);
-        A(pos + k - 1, :) = LK;
-
         for i = k+1:n
             aux = A(i,k)/A(k,k);
             ops_with_float++;
